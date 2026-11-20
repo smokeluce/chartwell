@@ -1,5 +1,7 @@
 # Chartwell
 
+<p align="center"><img src="docs/icon.png" width="160" alt="Chartwell icon"></p>
+
 A native macOS app that turns a JSON file of encounter records into clean, form-ready PDF and Word (.docx) documents.
 
 Chartwell reads your records, groups visits by facility, lets you fill in addresses once, and exports a polished log you can hand to someone who needs it in a specific layout. Everything runs locally. Nothing is uploaded and there are no network calls.
