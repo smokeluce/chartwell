@@ -1,0 +1,10 @@
+xcuserdata/
+DerivedData/
+build/
+.DS_Store
+*.xcuserstate
+private/
+*Medical*.json
+*Encounters*.json
+*.docx
+*.pdf
