@@ -148,6 +148,8 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
         super.viewDidLoad()
         pdfButton.target = self
         pdfButton.action = #selector(exportPDF)
+        wordButton.target = self
+        wordButton.action = #selector(exportWord)
         updateStatus()
         if let path = defaults.string(forKey: lastFileKey),
             FileManager.default.fileExists(atPath: path) {
@@ -198,6 +200,30 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
         }
     }
 
+    @objc private func exportWord() {
+        let groups = Grouping.byFacility(visible)
+        guard !groups.isEmpty else { return }
+        let name = nameOption.effectiveName
+        let stamp = DateFormatter()
+        stamp.locale = Locale(identifier: "en_US_POSIX")
+        stamp.dateFormat = "yyyy-MM-dd"
+        let panel = NSSavePanel()
+        panel.allowedFileTypes = ["docx"]
+        panel.nameFieldStringValue = "Future Medical Treatment Log - " + stamp.string(from: Date()) + ".docx"
+        panel.message = "Export the form as a Word document"
+        panel.begin { response in
+            guard response == .OK, let url = panel.url else { return }
+            if FormDocxRenderer().render(name: name, groups: groups, to: url) {
+                NSWorkspace.shared.activateFileViewerSelecting([url])
+            } else {
+                let alert = NSAlert()
+                alert.messageText = "Could not create the Word document"
+                alert.informativeText = "Check that the destination is writable and try again."
+                alert.runModal()
+            }
+        }
+    }
+
     @objc private func addressEdited(_ sender: NSTextField) {
         let row = table.row(for: sender)
         guard row >= 0, row < visible.count else { return }
@@ -232,6 +258,7 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
 
     private func updateStatus() {
         pdfButton.isEnabled = !visible.isEmpty
+        wordButton.isEnabled = !visible.isEmpty
         if all.isEmpty {
             statusLabel.stringValue = ""
         } else if visible.count == all.count {

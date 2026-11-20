@@ -18,6 +18,8 @@
 		6C9305E930B007FB00DD0156 /* NameOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305E530B007FB00DD0156 /* NameOptionView.swift */; };
 		6C9305EA30B007FB00DD0156 /* Grouping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305E630B007FB00DD0156 /* Grouping.swift */; };
 		6C9305EC30B0098400DD0156 /* PDFExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305EB30B0098400DD0156 /* PDFExporter.swift */; };
+		6C9305EF30B00C1300DD0156 /* ZipWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305ED30B00C1300DD0156 /* ZipWriter.swift */; };
+		6C9305F030B00C1300DD0156 /* DocxExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305EE30B00C1300DD0156 /* DocxExporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		6C9305E530B007FB00DD0156 /* NameOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameOptionView.swift; sourceTree = "<group>"; };
 		6C9305E630B007FB00DD0156 /* Grouping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grouping.swift; sourceTree = "<group>"; };
 		6C9305EB30B0098400DD0156 /* PDFExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFExporter.swift; sourceTree = "<group>"; };
+		6C9305ED30B00C1300DD0156 /* ZipWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipWriter.swift; sourceTree = "<group>"; };
+		6C9305EE30B00C1300DD0156 /* DocxExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocxExporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 		6C9305CE30B0032000DD0156 /* Chartwell */ = {
 			isa = PBXGroup;
 			children = (
+				6C9305EE30B00C1300DD0156 /* DocxExporter.swift */,
+				6C9305ED30B00C1300DD0156 /* ZipWriter.swift */,
 				6C9305EB30B0098400DD0156 /* PDFExporter.swift */,
 				6C9305E430B007FB00DD0156 /* AddressBook.swift */,
 				6C9305E630B007FB00DD0156 /* Grouping.swift */,
@@ -154,9 +160,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C9305EF30B00C1300DD0156 /* ZipWriter.swift in Sources */,
 				6C9305E130B005EC00DD0156 /* MainViewController.swift in Sources */,
 				6C9305E230B005EC00DD0156 /* Encounter.swift in Sources */,
 				6C9305D030B0032000DD0156 /* AppDelegate.swift in Sources */,
+				6C9305F030B00C1300DD0156 /* DocxExporter.swift in Sources */,
 				6C9305E930B007FB00DD0156 /* NameOptionView.swift in Sources */,
 				6C9305EC30B0098400DD0156 /* PDFExporter.swift in Sources */,
 				6C9305EA30B007FB00DD0156 /* Grouping.swift in Sources */,
