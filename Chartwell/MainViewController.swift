@@ -1,0 +1,257 @@
+import Cocoa
+
+final class MainViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+
+    private var all: [Encounter] = []
+    private var visible: [Encounter] = []
+    private var patientName = ""
+
+    private let table = NSTableView()
+    private let searchField = NSSearchField()
+    private let statusLabel = NSTextField(labelWithString: "")
+    private let emptyLabel = NSTextField(labelWithString: "Open a records JSON file to begin")
+    private let pdfButton = NSButton(title: "Export PDF", target: nil, action: nil)
+    private let wordButton = NSButton(title: "Export Word", target: nil, action: nil)
+
+    private let defaults = UserDefaults.standard
+    private let lastFileKey = "lastRecordsPath"
+
+    // MARK: - UI
+
+    private func prep<T: NSView>(_ v: T) -> T {
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }
+
+    override func loadView() {
+        let root = NSView(frame: NSRect(x: 0, y: 0, width: 980, height: 640))
+        root.wantsLayer = true
+        root.layer?.backgroundColor = Theme.background.cgColor
+        self.view = root
+
+        // Header
+        let header = prep(NSView())
+        header.wantsLayer = true
+        header.layer?.backgroundColor = Theme.navy.cgColor
+
+        let title = prep(NSTextField(labelWithString: "Chartwell"))
+        title.font = NSFont.systemFont(ofSize: 26, weight: .semibold)
+        title.textColor = .white
+
+        let subtitle = prep(NSTextField(labelWithString: "Turn encounter records into form-ready documents"))
+        subtitle.font = NSFont.systemFont(ofSize: 12)
+        subtitle.textColor = NSColor(white: 1, alpha: 0.65)
+
+        let openButton = prep(NSButton(title: "Open Records\u{2026}", target: self, action: #selector(openRecords)))
+        openButton.bezelStyle = .rounded
+
+        header.addSubview(title)
+        header.addSubview(subtitle)
+        header.addSubview(openButton)
+
+        // Toolbar row
+        searchField.placeholderString = "Filter encounters"
+        searchField.sendsSearchStringImmediately = true
+        searchField.target = self
+        searchField.action = #selector(filterChanged)
+        _ = prep(searchField)
+
+        statusLabel.font = NSFont.systemFont(ofSize: 12)
+        statusLabel.textColor = Theme.secondaryText
+        _ = prep(statusLabel)
+
+        for b in [pdfButton, wordButton] {
+            b.bezelStyle = .rounded
+            b.isEnabled = false
+            _ = prep(b)
+        }
+
+        // Table
+        addColumn("date", "Date", 110, 90)
+        addColumn("facility", "Facility", 260, 140)
+        addColumn("provider", "Provider", 220, 120)
+        addColumn("reason", "Reason for visit", 330, 160)
+        table.dataSource = self
+        table.delegate = self
+        table.rowHeight = 52
+        table.usesAlternatingRowBackgroundColors = true
+        table.gridStyleMask = []
+        table.intercellSpacing = NSSize(width: 0, height: 1)
+        table.columnAutoresizingStyle = .lastColumnOnlyAutoresizingStyle
+
+        let scroll = prep(NSScrollView())
+        scroll.documentView = table
+        scroll.hasVerticalScroller = true
+        scroll.borderType = .noBorder
+
+        emptyLabel.font = NSFont.systemFont(ofSize: 15)
+        emptyLabel.textColor = Theme.secondaryText
+        _ = prep(emptyLabel)
+
+        for v in [header, searchField, statusLabel, pdfButton, wordButton, scroll, emptyLabel] as [NSView] {
+            root.addSubview(v)
+        }
+
+        NSLayoutConstraint.activate([
+            header.topAnchor.constraint(equalTo: root.topAnchor),
+            header.leadingAnchor.constraint(equalTo: root.leadingAnchor),
+            header.trailingAnchor.constraint(equalTo: root.trailingAnchor),
+            header.heightAnchor.constraint(equalToConstant: 76),
+
+            title.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 24),
+            title.topAnchor.constraint(equalTo: header.topAnchor, constant: 12),
+            subtitle.leadingAnchor.constraint(equalTo: title.leadingAnchor),
+            subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 0),
+            openButton.trailingAnchor.constraint(equalTo: header.trailingAnchor, constant: -24),
+            openButton.centerYAnchor.constraint(equalTo: header.centerYAnchor),
+
+            searchField.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 14),
+            searchField.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
+            searchField.widthAnchor.constraint(equalToConstant: 240),
+
+            statusLabel.leadingAnchor.constraint(equalTo: searchField.trailingAnchor, constant: 16),
+            statusLabel.centerYAnchor.constraint(equalTo: searchField.centerYAnchor),
+
+            wordButton.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -24),
+            wordButton.centerYAnchor.constraint(equalTo: searchField.centerYAnchor),
+            pdfButton.trailingAnchor.constraint(equalTo: wordButton.leadingAnchor, constant: -8),
+            pdfButton.centerYAnchor.constraint(equalTo: searchField.centerYAnchor),
+
+            scroll.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 14),
+            scroll.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
+            scroll.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -24),
+            scroll.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -24),
+
+            emptyLabel.centerXAnchor.constraint(equalTo: scroll.centerXAnchor),
+            emptyLabel.centerYAnchor.constraint(equalTo: scroll.centerYAnchor)
+        ])
+    }
+
+    private func addColumn(_ id: String, _ title: String, _ width: CGFloat, _ minWidth: CGFloat) {
+        let c = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: id))
+        c.title = title
+        c.width = width
+        c.minWidth = minWidth
+        table.addTableColumn(c)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateStatus()
+        if let path = defaults.string(forKey: lastFileKey),
+            FileManager.default.fileExists(atPath: path) {
+            load(URL(fileURLWithPath: path))
+        }
+    }
+
+    // MARK: - Actions
+
+    @objc private func openRecords() {
+        let panel = NSOpenPanel()
+        panel.allowedFileTypes = ["json"]
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
+        panel.message = "Choose your records JSON file"
+        panel.begin { [weak self] response in
+            if response == .OK, let url = panel.url {
+                self?.load(url)
+            }
+        }
+    }
+
+    @objc private func filterChanged() {
+        applyFilter()
+    }
+
+    // MARK: - Data
+
+    private func load(_ url: URL) {
+        do {
+            let file = try EncounterFile.load(from: url)
+            all = file.encounters.sorted {
+                ($0.dateValue ?? Date.distantPast, $0.visitID) < ($1.dateValue ?? Date.distantPast, $1.visitID)
+            }
+            patientName = file.patient ?? ""
+            defaults.set(url.path, forKey: lastFileKey)
+            applyFilter()
+        } catch {
+            NSAlert(error: error).runModal()
+        }
+    }
+
+    private func applyFilter() {
+        let q = searchField.stringValue.trimmingCharacters(in: .whitespaces).lowercased()
+        visible = q.isEmpty ? all : all.filter { $0.searchText.contains(q) }
+        table.reloadData()
+        emptyLabel.isHidden = !all.isEmpty
+        updateStatus()
+    }
+
+    private func updateStatus() {
+        if all.isEmpty {
+            statusLabel.stringValue = ""
+        } else if visible.count == all.count {
+            statusLabel.stringValue = "\(all.count) encounters" + (patientName.isEmpty ? "" : "  \u{2022}  \(patientName)")
+        } else {
+            statusLabel.stringValue = "\(visible.count) of \(all.count) encounters"
+        }
+    }
+
+    // MARK: - Table
+
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return visible.count
+    }
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let column = tableColumn, row < visible.count else { return nil }
+        let e = visible[row]
+        let id = column.identifier
+
+        let cell: NSTableCellView
+        if let reused = tableView.makeView(withIdentifier: id, owner: self) as? NSTableCellView {
+            cell = reused
+        } else {
+            cell = makeCell(id)
+        }
+
+        var text = ""
+        var font = NSFont.systemFont(ofSize: 13)
+        var color = Theme.primaryText
+        switch id.rawValue {
+        case "date":
+            text = e.displayDate
+            font = NSFont.systemFont(ofSize: 13, weight: .medium)
+        case "facility":
+            text = e.facility
+        case "provider":
+            text = e.doctor
+            color = Theme.secondaryText
+        default:
+            text = e.reason
+        }
+        cell.textField?.stringValue = text
+        cell.textField?.font = font
+        cell.textField?.textColor = color
+        cell.toolTip = text
+        return cell
+    }
+
+    private func makeCell(_ id: NSUserInterfaceItemIdentifier) -> NSTableCellView {
+        let cell = NSTableCellView()
+        cell.identifier = id
+        let tf = NSTextField(wrappingLabelWithString: "")
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.lineBreakMode = .byTruncatingTail
+        tf.maximumNumberOfLines = 2
+        tf.isSelectable = false
+        cell.addSubview(tf)
+        cell.textField = tf
+        NSLayoutConstraint.activate([
+            tf.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 10),
+            tf.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -10),
+            tf.centerYAnchor.constraint(equalTo: cell.centerYAnchor)
+        ])
+        return cell
+    }
+}
