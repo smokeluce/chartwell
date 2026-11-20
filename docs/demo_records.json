@@ -1,0 +1,315 @@
+{
+  "document": "Future Medical Treatment Log",
+  "patient": "John Doe",
+  "year": 2026,
+  "record_count": 34,
+  "identifier_format": "JD-YYYY-NNN",
+  "encounters": [
+    {
+      "visit_id": "JD-2026-001",
+      "date": "2026-01-06",
+      "facility": "Lakeside Physical Therapy",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Mary Major, P.T., D.P.T.",
+      "address": "18 Lakeshore Dr, Springfield, XX 00002",
+      "reason": "Physical therapy evaluation for knee soreness and general stiffness."
+    },
+    {
+      "visit_id": "JD-2026-002",
+      "date": "2026-01-08",
+      "facility": "Fresh Start Nutrition Clinic",
+      "location": "Capital City, XX",
+      "doctor": "Dr. Pat Sample, R.D.N.",
+      "address": "",
+      "reason": "Nutrition consultation and meal-planning session."
+    },
+    {
+      "visit_id": "JD-2026-003",
+      "date": "2026-01-12",
+      "facility": "Lakeside Physical Therapy",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Mary Major, P.T., D.P.T.",
+      "address": "18 Lakeshore Dr, Springfield, XX 00002",
+      "reason": "Occupational therapy evaluation for wrist mobility and grip strength."
+    },
+    {
+      "visit_id": "JD-2026-004",
+      "date": "2026-01-13",
+      "facility": "Riverbend Imaging Center",
+      "location": "Shelbyville, XX",
+      "doctor": "Dr. Joe Bloggs, M.D.",
+      "address": "",
+      "reason": "Imaging associated with wrist follow-up."
+    },
+    {
+      "visit_id": "JD-2026-005",
+      "date": "2026-01-13",
+      "facility": "Summit Orthopedics",
+      "location": "Shelbyville, XX",
+      "doctor": "Dr. Richard Roe, M.D.",
+      "address": "9 Summit Ridge Rd, Shelbyville, XX 00004",
+      "reason": "Orthopedic follow-up for healing wrist sprain; review of imaging and range-of-motion guidance."
+    },
+    {
+      "visit_id": "JD-2026-006",
+      "date": "2026-01-26",
+      "facility": "Lakeside Physical Therapy",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Mary Major, P.T., D.P.T.",
+      "address": "18 Lakeshore Dr, Springfield, XX 00002",
+      "reason": "Physical therapy treatment; therapeutic exercise and home-program review."
+    },
+    {
+      "visit_id": "JD-2026-007",
+      "date": "2026-02-02",
+      "facility": "Clearview Eye Care",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Alex Example, O.D.",
+      "address": "",
+      "reason": "Eye exam for irritation and blurry vision."
+    },
+    {
+      "visit_id": "JD-2026-008",
+      "date": "2026-02-02",
+      "facility": "Northgate Laboratory Services",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Lee Fakename, M.D.",
+      "address": "500 Northgate Blvd, Springfield, XX 00003",
+      "reason": "Laboratory testing; the encounter listing does not specify the tests performed."
+    },
+    {
+      "visit_id": "JD-2026-009",
+      "date": "2026-02-04",
+      "facility": "Lakeside Physical Therapy",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Mary Major, P.T., D.P.T.",
+      "address": "18 Lakeshore Dr, Springfield, XX 00002",
+      "reason": "Physical therapy follow-up in the rehabilitation therapy series."
+    },
+    {
+      "visit_id": "JD-2026-010",
+      "date": "2026-02-24",
+      "facility": "Springfield Family Medicine",
+      "location": "Springfield, XX",
+      "doctor": "Dr. John Doe, M.D.",
+      "address": "742 Evergreen Terrace, Springfield, XX 00001",
+      "reason": "Family medicine follow-up for ankle discomfort and related activity limitations."
+    },
+    {
+      "visit_id": "JD-2026-011",
+      "date": "2026-03-03",
+      "facility": "Springfield Family Medicine",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Lee Fakename, M.D.",
+      "address": "742 Evergreen Terrace, Springfield, XX 00001",
+      "reason": "Follow-up regarding foot soreness and paperwork for a work-accommodation form."
+    },
+    {
+      "visit_id": "JD-2026-012",
+      "date": "2026-03-06",
+      "facility": "Harmony Counseling Center",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Jane Roe, D.O.",
+      "address": "27 Willow Ct, Springfield, XX 00006",
+      "reason": "Counseling appointment in the outpatient series; reason listed as Other."
+    },
+    {
+      "visit_id": "JD-2026-013",
+      "date": "2026-03-20",
+      "facility": "Springfield Family Medicine",
+      "location": "Springfield, XX",
+      "doctor": "Nurse Practitioner Terry Testcase",
+      "address": "742 Evergreen Terrace, Springfield, XX 00001",
+      "reason": "Initial annual wellness visit."
+    },
+    {
+      "visit_id": "JD-2026-014",
+      "date": "2026-03-24",
+      "facility": "Springfield Family Medicine",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Lee Fakename, M.D.",
+      "address": "742 Evergreen Terrace, Springfield, XX 00001",
+      "reason": "Medication refill encounter."
+    },
+    {
+      "visit_id": "JD-2026-015",
+      "date": "2026-03-30",
+      "facility": "Springfield Family Medicine",
+      "location": "Springfield, XX",
+      "doctor": "Dr. John Doe, M.D.",
+      "address": "742 Evergreen Terrace, Springfield, XX 00001",
+      "reason": "Family medicine follow-up addressing heartburn, ankle soreness, and weight management."
+    },
+    {
+      "visit_id": "JD-2026-016",
+      "date": "2026-04-02",
+      "facility": "Summit Orthopedics",
+      "location": "Shelbyville, XX",
+      "doctor": "Dr. Sam Placeholder, D.P.M.",
+      "address": "9 Summit Ridge Rd, Shelbyville, XX 00004",
+      "reason": "Visit for back and hip discomfort."
+    },
+    {
+      "visit_id": "JD-2026-017",
+      "date": "2026-04-02",
+      "facility": "Springfield General Hospital Emergency Department",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Richard Roe, M.D.",
+      "address": "1 Hospital Way, Springfield, XX 00005",
+      "reason": "Emergency department evaluation for foot pain after a fall."
+    },
+    {
+      "visit_id": "JD-2026-018",
+      "date": "2026-04-06",
+      "facility": "Harmony Counseling Center",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Jane Roe, D.O.",
+      "address": "27 Willow Ct, Springfield, XX 00006",
+      "reason": "Counseling appointment; reason recorded as stress."
+    },
+    {
+      "visit_id": "JD-2026-019",
+      "date": "2026-04-16",
+      "facility": "Riverbend Imaging Center",
+      "location": "Shelbyville, XX",
+      "doctor": "Dr. Joe Bloggs, M.D.",
+      "address": "",
+      "reason": "Imaging encounter associated with foot and ankle evaluation; the study is not specified."
+    },
+    {
+      "visit_id": "JD-2026-020",
+      "date": "2026-04-16",
+      "facility": "Summit Orthopedics",
+      "location": "Shelbyville, XX",
+      "doctor": "Dr. Sam Placeholder, D.P.M.",
+      "address": "9 Summit Ridge Rd, Shelbyville, XX 00004",
+      "reason": "Orthopedic visit for pain involving the foot and ankle."
+    },
+    {
+      "visit_id": "JD-2026-021",
+      "date": "2026-04-22",
+      "facility": "Harmony Counseling Center",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Jane Roe, D.O.",
+      "address": "27 Willow Ct, Springfield, XX 00006",
+      "reason": "Counseling appointment in the outpatient series; reason listed as Other."
+    },
+    {
+      "visit_id": "JD-2026-022",
+      "date": "2026-05-06",
+      "facility": "Harmony Counseling Center",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Jane Roe, D.O.",
+      "address": "27 Willow Ct, Springfield, XX 00006",
+      "reason": "Counseling appointment addressing sleep and stress management."
+    },
+    {
+      "visit_id": "JD-2026-023",
+      "date": "2026-05-14",
+      "facility": "Summit Orthopedics",
+      "location": "Shelbyville, XX",
+      "doctor": "Dr. Sam Placeholder, D.P.M.",
+      "address": "9 Summit Ridge Rd, Shelbyville, XX 00004",
+      "reason": "Orthopedic follow-up visit."
+    },
+    {
+      "visit_id": "JD-2026-024",
+      "date": "2026-05-26",
+      "facility": "Riverbend Imaging Center",
+      "location": "Shelbyville, XX",
+      "doctor": "Dr. Joe Bloggs, M.D.",
+      "address": "",
+      "reason": "Outpatient imaging encounter; the study or procedure is not specified."
+    },
+    {
+      "visit_id": "JD-2026-025",
+      "date": "2026-06-05",
+      "facility": "Springfield Family Medicine",
+      "location": "Springfield, XX",
+      "doctor": "Dr. John Doe, M.D.",
+      "address": "742 Evergreen Terrace, Springfield, XX 00001",
+      "reason": "Family medicine follow-up addressing reflux and worsening back and foot soreness over the past several weeks, with notes on daily-activity limits."
+    },
+    {
+      "visit_id": "JD-2026-026",
+      "date": "2026-07-07",
+      "facility": "Springfield Family Medicine",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Lee Fakename, M.D.",
+      "address": "742 Evergreen Terrace, Springfield, XX 00001",
+      "reason": "Medication refill encounter."
+    },
+    {
+      "visit_id": "JD-2026-027",
+      "date": "2026-07-07",
+      "facility": "Harmony Counseling Center",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Jane Roe, D.O.",
+      "address": "27 Willow Ct, Springfield, XX 00006",
+      "reason": "Counseling appointment; reason recorded as stress."
+    },
+    {
+      "visit_id": "JD-2026-028",
+      "date": "2026-07-07",
+      "facility": "Harmony Counseling Center",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Joe Bloggs, M.D.",
+      "address": "27 Willow Ct, Springfield, XX 00006",
+      "reason": "Consultation appointment."
+    },
+    {
+      "visit_id": "JD-2026-029",
+      "date": "2026-09-11",
+      "facility": "Harmony Counseling Center",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Jane Roe, D.O.",
+      "address": "27 Willow Ct, Springfield, XX 00006",
+      "reason": "Counseling appointment; reason recorded as adjustment to a life change."
+    },
+    {
+      "visit_id": "JD-2026-030",
+      "date": "2026-09-22",
+      "facility": "Northgate Laboratory Services",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Lee Fakename, M.D.",
+      "address": "500 Northgate Blvd, Springfield, XX 00003",
+      "reason": "Laboratory testing encounter; the encounter listing does not specify the tests performed."
+    },
+    {
+      "visit_id": "JD-2026-031",
+      "date": "2026-10-14",
+      "facility": "Harmony Counseling Center",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Joe Bloggs, M.D.",
+      "address": "27 Willow Ct, Springfield, XX 00006",
+      "reason": "Medication-management appointment."
+    },
+    {
+      "visit_id": "JD-2026-032",
+      "date": "2026-10-16",
+      "facility": "Harmony Counseling Center",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Jane Roe, D.O.",
+      "address": "27 Willow Ct, Springfield, XX 00006",
+      "reason": "Counseling appointment in the outpatient series."
+    },
+    {
+      "visit_id": "JD-2026-033",
+      "date": "2026-11-03",
+      "facility": "Springfield Family Medicine",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Lee Fakename, M.D.",
+      "address": "742 Evergreen Terrace, Springfield, XX 00001",
+      "reason": ""
+    },
+    {
+      "visit_id": "JD-2026-034",
+      "date": "2026-11-12",
+      "facility": "Harmony Counseling Center",
+      "location": "Springfield, XX",
+      "doctor": "Dr. Joe Bloggs, M.D.",
+      "address": "27 Willow Ct, Springfield, XX 00006",
+      "reason": "Medication refill encounter."
+    }
+  ]
+}

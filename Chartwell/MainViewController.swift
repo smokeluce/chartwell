@@ -146,10 +146,12 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        pdfButton.target = self
+        pdfButton.action = #selector(exportPDF)
         updateStatus()
         if let path = defaults.string(forKey: lastFileKey),
             FileManager.default.fileExists(atPath: path) {
-            load(URL(fileURLWithPath: path))
+            load(URL(fileURLWithPath: path), quiet: true)
         }
     }
 
@@ -172,6 +174,30 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
         applyFilter()
     }
 
+    @objc private func exportPDF() {
+        let groups = Grouping.byFacility(visible)
+        guard !groups.isEmpty else { return }
+        let name = nameOption.effectiveName
+        let stamp = DateFormatter()
+        stamp.locale = Locale(identifier: "en_US_POSIX")
+        stamp.dateFormat = "yyyy-MM-dd"
+        let panel = NSSavePanel()
+        panel.allowedFileTypes = ["pdf"]
+        panel.nameFieldStringValue = "Future Medical Treatment Log - " + stamp.string(from: Date()) + ".pdf"
+        panel.message = "Export the form as a PDF"
+        panel.begin { response in
+            guard response == .OK, let url = panel.url else { return }
+            if FormPDFRenderer().render(name: name, groups: groups, to: url) {
+                NSWorkspace.shared.activateFileViewerSelecting([url])
+            } else {
+                let alert = NSAlert()
+                alert.messageText = "Could not create the PDF"
+                alert.informativeText = "Check that the destination is writable and try again."
+                alert.runModal()
+            }
+        }
+    }
+
     @objc private func addressEdited(_ sender: NSTextField) {
         let row = table.row(for: sender)
         guard row >= 0, row < visible.count else { return }
@@ -181,7 +207,7 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
 
     // MARK: - Data
 
-    private func load(_ url: URL) {
+    private func load(_ url: URL, quiet: Bool = false) {
         do {
             let file = try EncounterFile.load(from: url)
             all = file.encounters.sorted {
@@ -192,7 +218,7 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
             defaults.set(url.path, forKey: lastFileKey)
             applyFilter()
         } catch {
-            NSAlert(error: error).runModal()
+            if !quiet { NSAlert(error: error).runModal() }
         }
     }
 
@@ -205,6 +231,7 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
     }
 
     private func updateStatus() {
+        pdfButton.isEnabled = !visible.isEmpty
         if all.isEmpty {
             statusLabel.stringValue = ""
         } else if visible.count == all.count {
