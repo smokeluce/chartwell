@@ -13,6 +13,10 @@
 		6C9305E030B005EC00DD0156 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305DD30B005EC00DD0156 /* Theme.swift */; };
 		6C9305E130B005EC00DD0156 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305DE30B005EC00DD0156 /* MainViewController.swift */; };
 		6C9305E230B005EC00DD0156 /* Encounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305DF30B005EC00DD0156 /* Encounter.swift */; };
+		6C9305E730B007FB00DD0156 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305E330B007FB00DD0156 /* Settings.swift */; };
+		6C9305E830B007FB00DD0156 /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305E430B007FB00DD0156 /* AddressBook.swift */; };
+		6C9305E930B007FB00DD0156 /* NameOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305E530B007FB00DD0156 /* NameOptionView.swift */; };
+		6C9305EA30B007FB00DD0156 /* Grouping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9305E630B007FB00DD0156 /* Grouping.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +29,10 @@
 		6C9305DD30B005EC00DD0156 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		6C9305DE30B005EC00DD0156 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		6C9305DF30B005EC00DD0156 /* Encounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encounter.swift; sourceTree = "<group>"; };
+		6C9305E330B007FB00DD0156 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		6C9305E430B007FB00DD0156 /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
+		6C9305E530B007FB00DD0156 /* NameOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameOptionView.swift; sourceTree = "<group>"; };
+		6C9305E630B007FB00DD0156 /* Grouping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grouping.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +65,10 @@
 		6C9305CE30B0032000DD0156 /* Chartwell */ = {
 			isa = PBXGroup;
 			children = (
+				6C9305E430B007FB00DD0156 /* AddressBook.swift */,
+				6C9305E630B007FB00DD0156 /* Grouping.swift */,
+				6C9305E530B007FB00DD0156 /* NameOptionView.swift */,
+				6C9305E330B007FB00DD0156 /* Settings.swift */,
 				6C9305DF30B005EC00DD0156 /* Encounter.swift */,
 				6C9305DE30B005EC00DD0156 /* MainViewController.swift */,
 				6C9305DD30B005EC00DD0156 /* Theme.swift */,
@@ -142,7 +154,11 @@
 				6C9305E130B005EC00DD0156 /* MainViewController.swift in Sources */,
 				6C9305E230B005EC00DD0156 /* Encounter.swift in Sources */,
 				6C9305D030B0032000DD0156 /* AppDelegate.swift in Sources */,
+				6C9305E930B007FB00DD0156 /* NameOptionView.swift in Sources */,
+				6C9305EA30B007FB00DD0156 /* Grouping.swift in Sources */,
+				6C9305E830B007FB00DD0156 /* AddressBook.swift in Sources */,
 				6C9305E030B005EC00DD0156 /* Theme.swift in Sources */,
+				6C9305E730B007FB00DD0156 /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

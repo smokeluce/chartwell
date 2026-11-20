@@ -1,0 +1,35 @@
+{
+  "document": "Future Medical Treatment Log",
+  "patient": "Jane Q. Sample",
+  "year": 2026,
+  "record_count": 3,
+  "encounters": [
+    {
+      "visit_id": "JS-2026-001",
+      "date": "2026-01-06",
+      "facility": "Riverside Family Clinic",
+      "location": "Springfield, XX",
+      "doctor": "Alex Example, M.D.",
+      "address": "",
+      "reason": "Follow-up visit."
+    },
+    {
+      "visit_id": "JS-2026-002",
+      "date": "2026-02-10",
+      "facility": "Riverside Family Clinic",
+      "location": "Springfield, XX",
+      "doctor": "Alex Example, M.D.",
+      "address": "100 Main St, Springfield, XX 00000",
+      "reason": "Medication refill."
+    },
+    {
+      "visit_id": "JS-2026-003",
+      "date": "2026-03-15",
+      "facility": "Lakeside Imaging",
+      "location": "Springfield, XX",
+      "doctor": "Radiology staff",
+      "address": "",
+      "reason": "Imaging study."
+    }
+  ]
+}

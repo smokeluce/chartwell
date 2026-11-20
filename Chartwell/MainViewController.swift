@@ -13,6 +13,8 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
     private let pdfButton = NSButton(title: "Export PDF", target: nil, action: nil)
     private let wordButton = NSButton(title: "Export Word", target: nil, action: nil)
 
+    private let nameOption = NameOptionView(frame: .zero)
+
     private let defaults = UserDefaults.standard
     private let lastFileKey = "lastRecordsPath"
 
@@ -68,9 +70,10 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
 
         // Table
         addColumn("date", "Date", 110, 90)
-        addColumn("facility", "Facility", 260, 140)
-        addColumn("provider", "Provider", 220, 120)
-        addColumn("reason", "Reason for visit", 330, 160)
+        addColumn("facility", "Facility", 200, 140)
+        addColumn("address", "Address", 190, 120)
+        addColumn("provider", "Provider", 150, 110)
+        addColumn("reason", "Reason for visit", 220, 160)
         table.dataSource = self
         table.delegate = self
         table.rowHeight = 52
@@ -88,7 +91,8 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
         emptyLabel.textColor = Theme.secondaryText
         _ = prep(emptyLabel)
 
-        for v in [header, searchField, statusLabel, pdfButton, wordButton, scroll, emptyLabel] as [NSView] {
+        _ = prep(nameOption)
+        for v in [header, searchField, statusLabel, pdfButton, wordButton, nameOption, scroll, emptyLabel] as [NSView] {
             root.addSubview(v)
         }
 
@@ -117,7 +121,12 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
             pdfButton.trailingAnchor.constraint(equalTo: wordButton.leadingAnchor, constant: -8),
             pdfButton.centerYAnchor.constraint(equalTo: searchField.centerYAnchor),
 
-            scroll.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 14),
+            nameOption.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 12),
+            nameOption.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
+            nameOption.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -24),
+            nameOption.heightAnchor.constraint(equalToConstant: 26),
+
+            scroll.topAnchor.constraint(equalTo: nameOption.bottomAnchor, constant: 12),
             scroll.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
             scroll.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -24),
             scroll.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -24),
@@ -163,6 +172,13 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
         applyFilter()
     }
 
+    @objc private func addressEdited(_ sender: NSTextField) {
+        let row = table.row(for: sender)
+        guard row >= 0, row < visible.count else { return }
+        AddressBook.shared.setAddress(sender.stringValue, for: visible[row].facility)
+        table.reloadData()
+    }
+
     // MARK: - Data
 
     private func load(_ url: URL) {
@@ -172,6 +188,7 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
                 ($0.dateValue ?? Date.distantPast, $0.visitID) < ($1.dateValue ?? Date.distantPast, $1.visitID)
             }
             patientName = file.patient ?? ""
+            nameOption.setRecordsName(patientName)
             defaults.set(url.path, forKey: lastFileKey)
             applyFilter()
         } catch {
@@ -224,6 +241,8 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
             font = NSFont.systemFont(ofSize: 13, weight: .medium)
         case "facility":
             text = e.facility
+        case "address":
+            text = AddressBook.shared.resolved(for: e)
         case "provider":
             text = e.doctor
             color = Theme.secondaryText
@@ -231,6 +250,10 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
             text = e.reason
         }
         cell.textField?.stringValue = text
+        let isAddress = (id.rawValue == "address")
+        cell.textField?.isEditable = isAddress
+        cell.textField?.isSelectable = isAddress
+        cell.textField?.placeholderString = isAddress ? "Click to add address" : nil
         cell.textField?.font = font
         cell.textField?.textColor = color
         cell.toolTip = text
@@ -245,6 +268,8 @@ final class MainViewController: NSViewController, NSTableViewDataSource, NSTable
         tf.lineBreakMode = .byTruncatingTail
         tf.maximumNumberOfLines = 2
         tf.isSelectable = false
+        tf.target = self
+        tf.action = #selector(addressEdited(_:))
         cell.addSubview(tf)
         cell.textField = tf
         NSLayoutConstraint.activate([
